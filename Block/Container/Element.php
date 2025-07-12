@@ -1,9 +1,7 @@
 <?php
 namespace MediaLounge\Storyblok\Block\Container;
 
-//use Storyblok\RichtextRender\Resolver;
 use Magento\Framework\View\Element\Template\Context;
-//use Storyblok\RichtextRender\ResolverFactory as StoryblokResolver;
 use Tiptap\Editor;
 use Storyblok\Tiptap\Extension\Storyblok;
 use Psr\Log\LoggerInterface;
@@ -18,14 +16,12 @@ class Element extends \Magento\Framework\View\Element\Template
     private $editor;
 
     public function __construct(
-        //StoryblokResolver $storyblokResolver,
         Context $context,
         LoggerInterface $logger,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
-        //$this->storyblokResolver = $storyblokResolver->create();
         $this->editor = new Editor(['extensions' => [new Storyblok(),],]);
         $this->logger = $logger;
     }

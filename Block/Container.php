@@ -109,9 +109,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
     {
 
         $slug = $this->getData('slug') ?: $this->getRequest()->getParam('slug') ?: $this->getRequest()->getOriginalPathInfo() ?: '';
-
-
-
+        $paramStoryblok = $request->getParam('_storyblok');
 
         $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=' . $slug);
         if (empty($slug)) {
@@ -121,7 +119,13 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
         if (!$this->getData('story')) {
             try {
-                $storiesApi = new StoriesApi($this->storyblokClient, 'draft');
+                if (empty($paramStoryblok)) {
+                    $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Magento - used Published Version');
+                    $storiesApi = new StoriesApi($this->storyblokClient, Version::Published);
+                } else {
+                    $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Storyblok Editor - use Draft version');
+                    $storiesApi = new StoriesApi($this->storyblokClient, Version::Draft);
+                }
                 $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start');
                 $data = $storiesApi->bySlug($slug, new StoryRequest(language: 'en'));
                 $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::$data' . json_encode($data));

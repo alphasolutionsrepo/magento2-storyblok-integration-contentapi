@@ -15,9 +15,12 @@ use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\PageCache\Model\Cache\Type as CacheType;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Action\HttpPostActionInterface;
+use Psr\Log\LoggerInterface;
 
 class Clean extends Action implements HttpPostActionInterface
 {
+    private LoggerInterface $logger;
+
     /**
      * @var JsonFactory
      */
@@ -62,7 +65,8 @@ class Clean extends Action implements HttpPostActionInterface
         Json $json,
         ScopeConfigInterface $scopeConfig,
         StoreManagerInterface $storeManager,
-        TypeListInterface $cacheTypeList
+        TypeListInterface $cacheTypeList,
+        LoggerInterface $logger
     ) {
         parent::__construct($context);
 
@@ -77,18 +81,24 @@ class Clean extends Action implements HttpPostActionInterface
 
     public function execute(): ResultInterface
     {
+        $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::Start');
         $success = false;
         $postContent = $this->json->unserialize($this->getRequest()->getContent());
+        $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$postContent: ' . json_encode($postContent));
 
         if ($this->isSignatureValid($this->getRequest())) {
             if (isset($postContent['story_id'])) {
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$postContent: ' . json_encode($postContent));
                 preg_match('#\((.*?)\)#', $postContent['text'], $slug);
-
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$slug: ' . $slug);
+                
                 $tags = ["storyblok_slug_{$slug[1]}", "storyblok_{$postContent['story_id']}"];
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$slug: ' . $tags);
                 $this->cacheInterface->clean($tags);
                 $this->cacheType->clean(\Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $tags);
 
                 $success = true;
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$success: ' . $success);
             } elseif (
                 isset($postContent['action']) &&
                 $postContent['action'] === 'release_merged'
@@ -121,16 +131,22 @@ class Clean extends Action implements HttpPostActionInterface
      */
     private function isSignatureValid(RequestInterface $request): bool
     {        
+        $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start');
         $webhookSecret = $this->scopeConfig->getValue(
             'storyblok/general/webhook_secret',
             ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
         );
         $signature = hash_hmac('sha1', $request->getContent(), $webhookSecret);
+        $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:webhookSecret=' . $webhookSecret );
+        $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:signature    =' . $signature );
+
         $webhookSignature = $request
             ->getHeaders()
             ->get('Webhook-Signature')
             ->getFieldValue();
+
+        $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:webhookSignature    =' . $webhookSignature );
 
         return $signature === $webhookSignature;
     }
