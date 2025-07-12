@@ -69,7 +69,7 @@ class Clean extends Action implements HttpPostActionInterface
         LoggerInterface $logger
     ) {
         parent::__construct($context);
-
+        $this->logger = $logger;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->cacheInterface = $cacheInterface;
         $this->cacheType = $cacheType;
