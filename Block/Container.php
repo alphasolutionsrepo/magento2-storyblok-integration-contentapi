@@ -109,7 +109,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
     {
 
         $slug = $this->getData('slug') ?: $this->getRequest()->getParam('slug') ?: $this->getRequest()->getOriginalPathInfo() ?: '';
-        $paramStoryblok = $request->getParam('_storyblok');
+        $paramStoryblok = $this->getRequest()->getParam('_storyblok');
 
         $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=' . $slug);
         if (empty($slug)) {
