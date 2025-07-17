@@ -32,7 +32,7 @@ class Index extends Action implements HttpGetActionInterface
     {
         $story = $this->getRequest()->getParam('story', null);
 
-        $this->logger->debug('MediaLounge\Storyblok\Controller\Index:: execute():: $story=' . json_encode($story));
+        // $this->logger->debug('MediaLounge\Storyblok\Controller\Index:: execute():: $story=' . json_encode($story));
 
         if (!$story) {
             throw new NotFoundException(__('Story parameter is missing.'));
@@ -47,7 +47,7 @@ class Index extends Action implements HttpGetActionInterface
             ->getBlock('storyblok.page')
             ->setStory($story);
 
-        $this->logger->debug('MediaLounge\Storyblok\Controller\Index:: execute():: returning $resultPage');
+        // $this->logger->debug('MediaLounge\Storyblok\Controller\Index:: execute():: returning $resultPage');
 
         return $resultPage;
     }

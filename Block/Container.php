@@ -111,31 +111,31 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         $slug = $this->getData('slug') ?: $this->getRequest()->getParam('slug') ?: $this->getRequest()->getOriginalPathInfo() ?: '';
         $paramStoryblok = $this->getRequest()->getParam('_storyblok');
 
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=' . $slug);
+        // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=' . $slug);
         if (empty($slug)) {
-            $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=EMPTY');
+            // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=EMPTY');
             return [];
         }
 
         if (!$this->getData('story')) {
             try {
                 if (empty($paramStoryblok)) {
-                    $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Magento - used Published Version');
+                    // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Magento - used Published Version');
                     $storiesApi = new StoriesApi($this->storyblokClient, 'published');
                 } else {
-                    $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Storyblok Editor - use Draft version');
+                    // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Storyblok Editor - use Draft version');
                     $storiesApi = new StoriesApi($this->storyblokClient, 'draft');
                 }
-                $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start');
+                // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start');
                 $data = $storiesApi->bySlug($slug, new StoryRequest(language: 'en'));
-                $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::$data' . json_encode($data));
+                // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::$data' . json_encode($data));
                 $this->setData('story', $data->story);
             } catch (ApiException $e) {
                 return [];
             }
         }
 
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::END');
+        // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::END');
         return $this->getData('story');
     }
 
@@ -192,20 +192,20 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
     protected function _toHtml(): string
     {
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::Start');
+        // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::Start');
 
         $request = $this->getRequest();
         $paramStoryblok = $request->getParam('_storyblok');
         $originalPathInfo = trim($request->getOriginalPathInfo(), '/');
         $requestUri = trim($request->getRequestUri(), '/');
         $identifier = trim($request->getOriginalPathInfo(), '/');
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $identifier=' . $identifier);
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: getParam(_storyblok)=' . $paramStoryblok);
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $originalPathInfo=' . $originalPathInfo);
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $requestUri=' . $requestUri);
+        // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $identifier=' . $identifier);
+        // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: getParam(_storyblok)=' . $paramStoryblok);
+        // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $originalPathInfo=' . $originalPathInfo);
+        // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $requestUri=' . $requestUri);
 
         $storyData = $this->getStory();
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::$storyData: ' . json_encode($storyData));
+        // $this->logger->debug('MediaLounge\Storyblok\Blok\Container::$storyData: ' . json_encode($storyData));
 
         if ($storyData) {
             $blockData = $storyData['content'] ?? [];
