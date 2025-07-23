@@ -37,6 +37,8 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
      */
     private $viewFileSystem;
 
+    private $loglevel;
+
     public function __construct(
         LoggerInterface $logger,
         FileSystem $viewFileSystem,

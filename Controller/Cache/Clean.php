@@ -57,6 +57,8 @@ class Clean extends Action implements HttpPostActionInterface
     private $cacheTypeList;
      /** @var ScopeConfigInterface */
 
+    private $loglevel;
+
     public function __construct(
         Context $context,
         JsonFactory $resultJsonFactory,
