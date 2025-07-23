@@ -105,7 +105,7 @@ class Clean extends Action implements HttpPostActionInterface
                 preg_match('#\((.*?)\)#', $postContent['text'], $slug);
                 if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$slug: ' . $slug);
                 
-                $tags = ["storyblok_slug_{$slug[1]}", "storyblok_{$postContent['story_id']}"];
+                $tags = ["storyblok_slug_{$slug}", "storyblok_{$postContent['story_id']}"];
                 if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$slug: ' . $tags);
                 $this->cacheInterface->clean($tags);
                 $this->cacheType->clean(\Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $tags);
