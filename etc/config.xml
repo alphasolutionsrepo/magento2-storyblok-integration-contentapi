@@ -11,6 +11,7 @@
             <general>
                 <api_path>https://api-us.storyblok.com/v2/cdn</api_path>
                 <timeout>10</timeout>
+                <log_level>error</log_level>
             </general>
         </MediaLounge_Storyblok>
     </default>

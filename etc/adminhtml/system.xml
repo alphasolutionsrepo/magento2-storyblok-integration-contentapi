@@ -67,13 +67,4 @@
             </group>
         </section>
     </system>
-    <default>
-        <storyblok>
-            <general>
-                <log_level>error</log_level>
-                <api_path>https://api-us.storyblok.com/v2/cdn</api_path>
-                <timeout>30</timeout>
-            </general>
-        </storyblok>
-    </default>
 </config>
