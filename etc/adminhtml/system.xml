@@ -43,6 +43,13 @@
                         <field id="storyblok/general/enabled">1</field>
                     </depends>
                 </field>
+                <field id="log_level" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Log level (debug, error, critical)</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="storyblok/general/enabled">1</field>
+                    </depends>
+                </field>
             </group>
         </section>
         <section id="sitemap">
@@ -60,4 +67,13 @@
             </group>
         </section>
     </system>
+    <default>
+        <storyblok>
+            <general>
+                <log_level>error</log_level>
+                <api_path>https://api-us.storyblok.com/v2/cdn</api_path>
+                <timeout>30</timeout>
+            </general>
+        </storyblok>
+    </default>
 </config>
