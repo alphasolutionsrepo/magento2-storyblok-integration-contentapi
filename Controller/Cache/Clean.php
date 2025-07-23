@@ -85,28 +85,30 @@ class Clean extends Action implements HttpPostActionInterface
             ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
         );
+
+
     }
 
     public function execute(): ResultInterface
     {
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::Start');
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::Start');
         $success = false;
         $postContent = $this->json->unserialize($this->getRequest()->getContent());
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$postContent: ' . json_encode($postContent));
+        if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$postContent: ' . json_encode($postContent));
 
         if ($this->isSignatureValid($this->getRequest())) {
             if (isset($postContent['story_id'])) {
-                if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$postContent: ' . json_encode($postContent));
+                if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$postContent: ' . json_encode($postContent));
                 preg_match('#\((.*?)\)#', $postContent['text'], $slug);
-                if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$slug: ' . $slug);
+                if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$slug: ' . $slug);
                 
                 $tags = ["storyblok_slug_{$slug[1]}", "storyblok_{$postContent['story_id']}"];
-                if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$slug: ' . $tags);
+                if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$slug: ' . $tags);
                 $this->cacheInterface->clean($tags);
                 $this->cacheType->clean(\Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $tags);
 
                 $success = true;
-                if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$success: ' . $success);
+                if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$success: ' . $success);
             } elseif (
                 isset($postContent['action']) &&
                 $postContent['action'] === 'release_merged'
@@ -139,22 +141,22 @@ class Clean extends Action implements HttpPostActionInterface
      */
     private function isSignatureValid(RequestInterface $request): bool
     {        
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start');
+        if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start');
         $webhookSecret = $this->scopeConfig->getValue(
             'storyblok/general/webhook_secret',
             ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
         );
         $signature = hash_hmac('sha1', $request->getContent(), $webhookSecret);
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:webhookSecret=' . $webhookSecret );
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:signature    =' . $signature );
+        if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:webhookSecret=' . $webhookSecret );
+        if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:signature    =' . $signature );
 
         $webhookSignature = $request
             ->getHeaders()
             ->get('Webhook-Signature')
             ->getFieldValue();
 
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:webhookSignature    =' . $webhookSignature );
+        if ($this->$loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::isSignatureValid()::Start:webhookSignature    =' . $webhookSignature );
 
         return $signature === $webhookSignature;
     }
