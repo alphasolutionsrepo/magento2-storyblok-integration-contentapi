@@ -71,7 +71,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
             $this->storeManager->getStore()->getId()
         );
 
-        $loglevel = $this->scopeConfig->getValue(
+        $this->loglevel = $this->scopeConfig->getValue(
             'storyblok/general/log_level',
             ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
@@ -119,32 +119,32 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         $slug = $this->getData('slug') ?: $this->getRequest()->getParam('slug') ?: $this->getRequest()->getOriginalPathInfo() ?: '';
         $paramStoryblok = $this->getRequest()->getParam('_storyblok');
 
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=' . $slug);        
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=' . $slug);        
         $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=' . $slug);
         if (empty($slug)) {
-            if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=EMPTY');    
+            if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::slug=EMPTY');    
             return [];
         }
 
         if (!$this->getData('story')) {
             try {
                 if (empty($paramStoryblok)) {
-                    if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Magento - used Published Version');
+                    if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Magento - used Published Version');
                     $storiesApi = new StoriesApi($this->storyblokClient, 'published');
                 } else {
-                    if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Storyblok Editor - use Draft version');
+                    if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Storyblok Editor - use Draft version');
                     $storiesApi = new StoriesApi($this->storyblokClient, 'draft');
                 }
-                if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start');
+                if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start');
                 $data = $storiesApi->bySlug($slug, new StoryRequest(language: 'en'));
-                if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::$data' . json_encode($data));
+                if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::$data' . json_encode($data));
                 $this->setData('story', $data->story);
             } catch (ApiException $e) {
                 return [];
             }
         }
 
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::END');
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::END');
         return $this->getData('story');
     }
 
@@ -206,7 +206,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         $originalPathInfo = trim($request->getOriginalPathInfo(), '/');
         $requestUri = trim($request->getRequestUri(), '/');
         $identifier = trim($request->getOriginalPathInfo(), '/');
-        if ($loglevel=== 'debug') {
+        if ($this->loglevel=== 'debug') {
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $identifier=' . $identifier);
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: getParam(_storyblok)=' . $paramStoryblok);
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $originalPathInfo=' . $originalPathInfo);
@@ -214,7 +214,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         }
 
         $storyData = $this->getStory();
-        if ($loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::$storyData: ' . json_encode($storyData));
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::$storyData: ' . json_encode($storyData));
 
         if ($storyData) {
             $blockData = $storyData['content'] ?? [];
