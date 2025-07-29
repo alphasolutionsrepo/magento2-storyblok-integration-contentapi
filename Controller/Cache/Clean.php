@@ -94,8 +94,18 @@ class Clean extends Action implements HttpPostActionInterface
 
     public function execute(): ResultInterface
     {
-        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::Start');
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::Start');        
         $success = false;
+        if ($this->getRequest()->getParam('clearall') === 'true') {
+            $this->cleanPageCache();
+            $success = true;
+            if ($this->loglevel === 'debug') {
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::All cache cleared via clearall param');
+            }
+            $result = $this->resultJsonFactory->create();
+            $result->setData(['success' => $success]);
+            return $result;
+        }
         $postContent = $this->json->unserialize($this->getRequest()->getContent());
         if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::$postContent: ' . json_encode($postContent));
 

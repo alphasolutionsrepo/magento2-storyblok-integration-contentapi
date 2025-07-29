@@ -2,5 +2,6 @@
 <div class="block-teaser">
         <div><?= $block->getHeadline() ?></div>
         <div><?= json_encode($block->getImage()) ?></div>
-                <div><?= json_encode($block->getBodytext()) ?></div>
+        <div><?= json_encode($block->getImage2()) ?></div>
+        <div><?= $block->renderWysiwyg($block->getBodytext()) ?></div>
 </div>
