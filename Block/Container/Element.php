@@ -69,7 +69,7 @@ class Element extends \Magento\Framework\View\Element\Template
     public function __call($method, $args)
     {
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()::$method=' . $method);
-        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()::$args=' . $args);
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()::$args=' . print_r($$args, true));
         // check for minimum length of 7 ('get' and 'html')
         if (!strlen($method) > 7) {
             return parent::__call($method, $args);
