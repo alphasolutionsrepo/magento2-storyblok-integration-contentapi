@@ -2,11 +2,11 @@
 <div class="block-teaser">
     <picture>
 +        <source
-+            srcset="<?= $block->transformImage($block->getImage(), '1280x460') ?>"
++            srcset="<?= $block->transformImage($block->getImage()['filename'], '1280x460') ?>"
 +            media="(min-width: 768px)"
 +        >
 +        <img
-+            src="<?= $block->transformImage($block->getImage(), '768x768/smart') ?>"
++            src="<?= $block->transformImage($block->getImage()['filename'], '768x768/smart') ?>"
 +            alt="<?= __('New Luma Collection') ?>"
 +        >
 +    </picture>
