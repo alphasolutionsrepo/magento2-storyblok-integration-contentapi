@@ -101,8 +101,9 @@ class Element extends \Magento\Framework\View\Element\Template
 
         $html = '';
         foreach ($data as $row) {
-            if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::getChildHtmlKey=' . $namePrefix . $row['_uid']);
-            $html .= $this->getChildHtml($namePrefix . $row['_uid']);
+            if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$row=' . json_encode($row));
+            //$html .= $this->getChildHtml($namePrefix . $row['_uid']);
+            $html .= $this->getChildHtml('container_0_45a4728f-e5b7-4542-820e-a88acc0a7aca');
         }
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$html=' . $html);
         return $html;
