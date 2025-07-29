@@ -72,6 +72,7 @@ class Element extends \Magento\Framework\View\Element\Template
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()::$args=' . print_r($args, true));
         // check for minimum length of 7 ('get' and 'html')
         if (!strlen($method) > 7) {
+            if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call():: calling parent::__call()');
             return parent::__call($method, $args);
         }
         $start = substr($method, 0, 3);
@@ -80,6 +81,7 @@ class Element extends \Magento\Framework\View\Element\Template
             $key = strtolower(substr($method, 3, -4));
             return $this->getStoryBlockChilds($key);
         }
+            if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()-2:: calling parent::__call()');
         return parent::__call($method, $args);
     }
 
