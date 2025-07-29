@@ -88,6 +88,7 @@ class Element extends \Magento\Framework\View\Element\Template
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$key=' . $key);
         $data = $this->getData($key);
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$data=' . print_r($data, true));
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$data=' . json_encode($data));
         if (!$data) {
             return null;
         }
@@ -96,9 +97,11 @@ class Element extends \Magento\Framework\View\Element\Template
         $namePrefix = substr($name, 0, strrpos($name, '_') + 1);
 
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$name=' . $name);
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$namePrefix=' . $namePrefix);
 
         $html = '';
         foreach ($data as $row) {
+            if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::getChildHtmlKey=' . $namePrefix . $row['_uid']);
             $html .= $this->getChildHtml($namePrefix . $row['_uid']);
         }
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$html=' . $html);
