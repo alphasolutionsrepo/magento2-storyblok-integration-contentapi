@@ -16,28 +16,19 @@ class Element extends \Magento\Framework\View\Element\Template
      */
     private $editor;
 
-    /** @var ScopeConfigInterface */
-    protected ScopeConfigInterface $scopeConfig;
-
     private $loglevel;
 
     public function __construct(
         Context $context,
         LoggerInterface $logger,
-        ScopeConfigInterface $scopeConfig,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
         $this->editor = new Editor(['extensions' => [new Storyblok(),],]);
         $this->logger = $logger;
-        $this->scopeConfig = $scopeConfig;
 
-        $this->loglevel = $this->scopeConfig->getValue(
-            'storyblok/general/log_level',
-            ScopeInterface::SCOPE_STORE,
-            $this->storeManager->getStore()->getId()
-        );
+        $this->loglevel = 'debug';
     }
 
     protected function _toHtml(): string
