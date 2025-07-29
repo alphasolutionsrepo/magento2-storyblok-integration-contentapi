@@ -68,6 +68,8 @@ class Element extends \Magento\Framework\View\Element\Template
 
     public function __call($method, $args)
     {
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()::$method=' . $method);
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()::$args=' . $args);
         // check for minimum length of 7 ('get' and 'html')
         if (!strlen($method) > 7) {
             return parent::__call($method, $args);
@@ -83,7 +85,9 @@ class Element extends \Magento\Framework\View\Element\Template
 
     protected function getStoryBlockChilds(string $key): ?string
     {
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$key=' . $key);
         $data = $this->getData($key);
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$data=' . print_r($data, true));
         if (!$data) {
             return null;
         }
@@ -91,10 +95,13 @@ class Element extends \Magento\Framework\View\Element\Template
         $name = $this->getNameInLayout();
         $namePrefix = substr($name, 0, strrpos($name, '_') + 1);
 
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$name=' . $name);
+
         $html = '';
         foreach ($data as $row) {
             $html .= $this->getChildHtml($namePrefix . $row['_uid']);
         }
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$html=' . $html);
         return $html;
     }
 }
