@@ -15,6 +15,8 @@ class Element extends \Magento\Framework\View\Element\Template
      */
     private $editor;
 
+    private $loglevel;
+
     public function __construct(
         Context $context,
         LoggerInterface $logger,
@@ -24,6 +26,11 @@ class Element extends \Magento\Framework\View\Element\Template
 
         $this->editor = new Editor(['extensions' => [new Storyblok(),],]);
         $this->logger = $logger;
+        $this->loglevel = $this->scopeConfig->getValue(
+            'storyblok/general/log_level',
+            ScopeInterface::SCOPE_STORE,
+            $this->storeManager->getStore()->getId()
+        );
     }
 
     protected function _toHtml(): string
@@ -35,18 +42,30 @@ class Element extends \Magento\Framework\View\Element\Template
 
     public function renderWysiwyg(array $arrContent): string
     {
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::Start');        
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::arrContent=' .  print_r($arrContent, true));        
         $this->editor->setContent($arrContent);
         $html = $this->editor->getHTML();
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$html=' . $html);
 
         return $html;
     }
 
     public function transformImage(string $image, string $param = ''): string
     {
+        if ($this->loglevel=== 'debug') { 
+            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::Start');        
+            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$image=' . $image);        
+            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$param=' . $param);        
+        }
         $imageService = '//img2.storyblok.com/';
         $resource = preg_replace('/(https?:)?\/\/a.storyblok.com/', '', $image);
 
-        return $imageService . $param . $resource;
+        $result = $imageService . $param . $resource;
+
+        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$result=' . $result);
+
+        return $result;
     }
 
     public function __call($method, $args)
