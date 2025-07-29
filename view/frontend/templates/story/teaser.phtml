@@ -3,13 +3,18 @@
     <div class="content">
         <?= $block->getHeadline() ?>
     </div>
-  	<div class="content image">
-        <?php if ($block->getImage()): ?>
-            <img src="<?= $block->getImage()->getUrl() ?>" alt="<?= $block->getImage()->getAlt() ?>" />
-        <?php endif; ?>
-    </div>
-    <div class="content bodytext">
-		<?= $block->getBodytextHtml() ?>
-    </div>
-
+    <picture>
++        <source
++            srcset="<?= $block->transformImage($block->getImage()['filename'], '1280x460') ?>"
++            media="(min-width: 768px)"
++        >
++        <img
++            src="<?= $block->transformImage($block->getImage()['filename'], '768x768/smart') ?>"
++            alt="<?= __('New Luma Collection') ?>"
++        >
++    </picture>
++    <div class="content">
++        <?= $block->getTitle() ?>
++        <?= $block->renderWysiwyg($block->getContent()) ?>
++    </div>
 </div>
