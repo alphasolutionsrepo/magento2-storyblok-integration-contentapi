@@ -3,7 +3,13 @@
     <div class="content">
         <?= $block->getHeadline() ?>
     </div>
-	<div class="content body">
+  	<div class="content image">
+        <?php if ($block->getImage()): ?>
+            <img src="<?= $block->getImage()->getUrl() ?>" alt="<?= $block->getImage()->getAlt() ?>" />
+        <?php endif; ?>
+    </div>
+    <div class="content bodytext">
 		<?= $block->getBodytextHtml() ?>
     </div>
+
 </div>
