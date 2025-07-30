@@ -56,8 +56,8 @@ class Element extends \Magento\Framework\View\Element\Template
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$image=' . $image);        
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$param=' . $param);        
         }
-        $imageService = '//img2.storyblok.com/';
-        $resource = preg_replace('/(https?:)?\/\/a.storyblok.com/', '', $image);
+        $imageService = '//a-us.storyblok.com/';
+        $resource = preg_replace('/(https?:)?\/\/a-us.storyblok.com/', '', $image);
 
         $result = $imageService . $param . $resource;
 
@@ -104,8 +104,8 @@ class Element extends \Magento\Framework\View\Element\Template
         $html = '';
         foreach ($data as $row) {
             if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$row=' . json_encode($row));
-            //$html .= $this->getChildHtml($namePrefix . $row['_uid']);
-            $html .= $this->getChildHtml('container_0_45a4728f-e5b7-4542-820e-a88acc0a7aca');
+            $html .= $this->getChildHtml($namePrefix . $row['_uid']);
+            //$html .= $this->getChildHtml('container_0_45a4728f-e5b7-4542-820e-a88acc0a7aca');
         }
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$html=' . $html);
         return $html;

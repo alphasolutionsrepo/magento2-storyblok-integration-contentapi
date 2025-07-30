@@ -155,6 +155,8 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
     private function createBlockFromData(array $blockData): Element
     {
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::createBlockFromData()::$blockData=' . json_encode($blockData));
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::createBlockFromData()::$blockData=' . print_r($blockData, true));
         $block = $this->getLayout()
             ->createBlock(
                 Element::class,
