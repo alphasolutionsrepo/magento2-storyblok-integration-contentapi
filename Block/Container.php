@@ -130,10 +130,10 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
             try {
                 if (empty($paramStoryblok)) {
                     if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Magento - used Published Version');
-                    $storiesApi = new StoriesApi($this->storyblokClient, Version::PUBLISHED);
+                    $storiesApi = new StoriesApi($this->storyblokClient, Version::Published);
                 } else {
                     if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start::Call from Storyblok Editor - use Draft version');
-                    $storiesApi = new StoriesApi($this->storyblokClient, Version::DRAFT);
+                    $storiesApi = new StoriesApi($this->storyblokClient, Version::Draft);
                 }
                 if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getStory()::Start');
                 $data = $storiesApi->bySlug($slug, new StoryRequest(language: 'en'));
