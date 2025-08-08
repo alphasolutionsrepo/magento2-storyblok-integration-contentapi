@@ -1,7 +1,16 @@
 <?php /** @var \MediaLounge\Storyblok\Block\Container\Element $block */ ?>
 <div class="block-teaser">
-        <div><?= $block->getHeadline() ?></div>
-        <div><?= json_encode($block->getImage()) ?></div>
-        <div><?= json_encode($block->getImage2()) ?></div>
-        <div><?= $block->renderWysiwyg($block->getBodytext()) ?></div>
+        <div>1: <?= $block->getHeadline() ?></div>
+        <div>
+            <?php if (!empty($block->getData('image'))): ?>
+                <img src="<?=$block->getData('image')['filename'] ?>" alt="<?=$block->getData('image')['alt'] ?>" title="<?=$block->getData('image')['title'] ?>"/>
+            <?php endif; ?>
+        </div>
+        <div>
+            <?php if (!empty($block->getData('image2'))): ?>
+                <img src="<?=$block->getData('image2')['filename'] ?>" alt="<?=$block->getData('image2')['alt'] ?>" title="<?=$block->getData('image2')['title'] ?>" />
+            <?php endif; ?>
+        </div>
+        <div>5: <?= $block->renderWysiwyg($block->getBodytext()) ?></div>  
+        <div><?=var_dump($block->getData()) ?></div>
 </div>

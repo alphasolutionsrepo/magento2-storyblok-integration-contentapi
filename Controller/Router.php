@@ -166,8 +166,10 @@ class Router implements RouterInterface
 
                 return $this->actionFactory->create(Forward::class, ['request' => $request]);
             }
-        } catch (ApiException $e) {
-            if ($this->loglevel=== 'debug')  $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): ApiException $data=' . $e->getMessage() );
+        } catch (ApiException $e) {                        
+            if ($this->loglevel === 'debug' || $this->loglevel === 'error') {
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): ApiException $data=' . $e->getMessage());
+            }
             return null;
         } catch (\Throwable $e) {
             $this->logger->error('MediaLounge\Storyblok\Controller\Router::match(): Unhandled Exception: ' . $e->getMessage());

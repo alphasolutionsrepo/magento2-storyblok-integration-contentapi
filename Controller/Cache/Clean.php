@@ -139,7 +139,7 @@ class Clean extends Action implements HttpPostActionInterface
 
     /**
      * Clean page cache
-     */
+     */ 
     private function cleanPageCache()
     {
         $types = ['layout', 'full_page', 'block_html'];
