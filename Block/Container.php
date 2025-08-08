@@ -110,6 +110,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
             $info[] = "storyblok_slug_{$this->getSlug()}";
         }
 
+        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheKeyInfo()::info=' . json_encode($info));
         return $info;
     }
 
