@@ -16,6 +16,7 @@ use Magento\PageCache\Model\Cache\Type as CacheType;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Psr\Log\LoggerInterface;
+use Magento\Framework\App\Cache\Frontend\Pool;
 
 class Clean extends Action implements HttpPostActionInterface
 {
@@ -55,6 +56,12 @@ class Clean extends Action implements HttpPostActionInterface
      * @var TypeListInterface
      */
     private $cacheTypeList;
+
+    /**
+     * @var Pool
+     */
+    protected $cacheFrontendPool;
+
      /** @var ScopeConfigInterface */
 
      /**
@@ -71,6 +78,7 @@ class Clean extends Action implements HttpPostActionInterface
         ScopeConfigInterface $scopeConfig,
         StoreManagerInterface $storeManager,
         TypeListInterface $cacheTypeList,
+        Pool $cacheFrontendPool,
         LoggerInterface $logger
     ) {
         parent::__construct($context);
@@ -82,6 +90,7 @@ class Clean extends Action implements HttpPostActionInterface
         $this->scopeConfig = $scopeConfig;
         $this->storeManager = $storeManager;
         $this->cacheTypeList = $cacheTypeList;
+        $this->cacheFrontendPool = $cacheFrontendPool;
 
         $loglevel = $this->scopeConfig->getValue(
             'storyblok/general/log_level',
@@ -157,6 +166,10 @@ class Clean extends Action implements HttpPostActionInterface
 
         foreach ($types as $type) {
             $this->cacheTypeList->cleanType($type);
+        }
+
+        foreach ($this->cacheFrontendPool as $cacheFrontend) {
+            $cacheFrontend->getBackend()->clean();
         }
     }
 
