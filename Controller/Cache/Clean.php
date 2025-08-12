@@ -151,7 +151,7 @@ class Clean extends Action implements HttpPostActionInterface
         foreach ($this->cacheTypeList->getTypes() as $typeCode => $type) {
             if ($this->loglevel === 'debug') {
                 $this->logger->debug("CacheTypeList element: {$typeCode} => " . get_class($type));
-                $this->cacheTypeList->cleanType($type);
+                $this->cacheTypeList->cleanType("{$typeCode}");
             }
         }
 
