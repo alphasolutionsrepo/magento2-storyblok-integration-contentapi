@@ -17,6 +17,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Cache\Frontend\Pool;
+use Magento\Framework\App\Cache\Manager as CacheManager;
 
 class Clean extends Action implements HttpPostActionInterface
 {
@@ -69,6 +70,8 @@ class Clean extends Action implements HttpPostActionInterface
      */
     private $loglevel;
 
+    protected $cacheManager;
+
     public function __construct(
         Context $context,
         JsonFactory $resultJsonFactory,
@@ -79,6 +82,7 @@ class Clean extends Action implements HttpPostActionInterface
         StoreManagerInterface $storeManager,
         TypeListInterface $cacheTypeList,
         Pool $cacheFrontendPool,
+        CacheManager $cacheManager,
         LoggerInterface $logger
     ) {
         parent::__construct($context);
@@ -91,6 +95,7 @@ class Clean extends Action implements HttpPostActionInterface
         $this->storeManager = $storeManager;
         $this->cacheTypeList = $cacheTypeList;
         $this->cacheFrontendPool = $cacheFrontendPool;
+        $this->cacheManager = $cacheManager;
 
         $loglevel = $this->scopeConfig->getValue(
             'storyblok/general/log_level',
@@ -106,7 +111,8 @@ class Clean extends Action implements HttpPostActionInterface
         if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::Start');        
         $success = false;
         if ($this->getRequest()->getParam('clearall') === 'true') {
-            $this->cleanPageCache();
+            //$this->cleanPageCache();
+            $this->clearAllCache();
             $success = true;
             if ($this->loglevel === 'debug') {
                 $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::All cache cleared via clearall param');
@@ -157,13 +163,6 @@ class Clean extends Action implements HttpPostActionInterface
     {
         $types = ['layout', 'full_page', 'block_html'];
 
-        foreach ($this->cacheTypeList->getTypes() as $typeCode => $type) {
-            if ($this->loglevel === 'debug') {
-                $this->logger->debug("CacheTypeList element: {$typeCode} => " . get_class($type));
-                $this->cacheTypeList->cleanType("{$typeCode}");
-            }
-        }
-
         foreach ($types as $type) {
             $this->cacheTypeList->cleanType($type);
         }
@@ -171,6 +170,11 @@ class Clean extends Action implements HttpPostActionInterface
         foreach ($this->cacheFrontendPool as $cacheFrontend) {
             $cacheFrontend->getBackend()->clean();
         }
+    }
+
+    public function clearAllCache()
+    {
+        $this->cacheManager->clean($this->cacheManager->getAvailableTypes());
     }
 
     /**
