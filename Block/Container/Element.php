@@ -85,8 +85,8 @@ class Element extends \Magento\Framework\View\Element\Template
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$image=' . $image);        
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$param=' . $param);        
         }
-        $imageService = '//a-us.storyblok.com/';
-        $resource = preg_replace('/(https?:)?\/\/a-us.storyblok.com/', '', $image);
+        $imageService = '//' . rtrim($this->imagehost, '/') . '/';
+        $resource = preg_replace('/(https?:)?\/\/' . preg_quote($this->imagehost, '/') . '/', '', $image);
 
         $result = $imageService . $param . $resource;
 
