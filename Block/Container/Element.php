@@ -5,6 +5,7 @@ use Magento\Framework\View\Element\Template\Context;
 use Tiptap\Editor;
 use Storyblok\Tiptap\Extension\Storyblok;
 use Psr\Log\LoggerInterface;
+use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
