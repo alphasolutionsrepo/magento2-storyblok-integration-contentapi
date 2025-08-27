@@ -29,13 +29,6 @@
                         <field id="storyblok/general/enabled">1</field>
                     </depends>
                 </field>
-                <field id="access_token" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Access Token</label>
-                    <validate>required-entry</validate>
-                    <depends>
-                        <field id="storyblok/general/enabled">1</field>
-                    </depends>
-                </field>
                 <field id="image_host" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Image Host</label>
                     <validate>required-entry</validate>
