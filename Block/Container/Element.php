@@ -5,6 +5,8 @@ use Magento\Framework\View\Element\Template\Context;
 use Tiptap\Editor;
 use Storyblok\Tiptap\Extension\Storyblok;
 use Psr\Log\LoggerInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 
 class Element extends \Magento\Framework\View\Element\Template
@@ -18,17 +20,41 @@ class Element extends \Magento\Framework\View\Element\Template
 
     private $loglevel;
 
+    private $imagehost;
+
+    /** @var ScopeConfigInterface */
+    protected ScopeConfigInterface $scopeConfig;
+
+    /** @var StoreManagerInterface */
+    protected StoreManagerInterface $storeManager;
+
     public function __construct(
         Context $context,
         LoggerInterface $logger,
+        ScopeConfigInterface $scopeConfig,
+        StoreManagerInterface $storeManager,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
         $this->editor = new Editor(['extensions' => [new Storyblok(),],]);
         $this->logger = $logger;
-
         $this->loglevel = 'debug';
+
+        $this->scopeConfig = $scopeConfig;
+        $this->storeManager = $storeManager;
+
+        $this->imagehost = $this->scopeConfig->getValue(
+            'storyblok/general/image_host',
+            ScopeInterface::SCOPE_STORE,
+            $this->storeManager->getStore()->getId()
+        );
+
+        if ($this->loglevel === 'debug') {
+            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::imagehost=' . $this->imagehost);
+        }
+        
+
     }
 
     protected function _toHtml(): string
@@ -40,6 +66,9 @@ class Element extends \Magento\Framework\View\Element\Template
 
     public function renderWysiwyg(array $arrContent): string
     {
+        if ($this->loglevel === 'debug') {
+            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$arrContent=' . print_r($arrContent, true));
+        }
         if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::Start');        
         $this->editor->setContent($arrContent);
         $html = $this->editor->getHTML();

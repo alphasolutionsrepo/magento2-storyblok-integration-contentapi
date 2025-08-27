@@ -9,6 +9,7 @@
         </sitemap>
         <MediaLounge_Storyblok>
             <general>
+                <image_host>a-us.storyblok.com</image_host>
                 <api_path>https://api-us.storyblok.com/v2/cdn</api_path>
                 <timeout>10</timeout>
                 <log_level>error</log_level>
