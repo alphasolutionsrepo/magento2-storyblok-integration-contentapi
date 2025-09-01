@@ -52,20 +52,24 @@ class TextStyleOverride extends Mark
             $this->logger->debug('TextStyleOverride::renderHTML: is_array - markArray=' . is_array($markArray));      
 
             $this->logger->debug('TextStyleOverride::renderHTML: $markArray->attrs=' . json_encode($markArray->attrs));
-            
+
+            $attrValue = $markArray->attrs;
+
+            $this->logger->debug('TextStyleOverride::renderHTML: $attrValue=' . json_encode($attrValue));
+
             $styles = [];
-            if (isset($markArray['attrs']) && is_array($markArray['attrs'])) {
-                foreach ($markArray['attrs'] as $key => $value) {
+            if (isset($attrValue) && is_array($attrValue)) {
+                foreach ($attrValue as $key => $value) {
                     $styles[] = $key . ':' . $value;
                 }
                 if (!empty($styles)) {
                     $HTMLAttributes['style'] = implode(';', $styles);
                 }
             }
-        } else if (isset($mark['attrs'])) {
+        } else if (isset($attrValue)) {
             $this->logger->debug('TextStyleOverride::renderHTML: NOT ARRAY');
-            $firstKey = array_key_first($mark['attrs']);
-            $firstValue = $mark['attrs'][$firstKey];
+            $firstKey = array_key_first($attrValue);
+            $firstValue = $attrValue[$firstKey];
             $HTMLAttributes['style'] = $firstKey . ':' . $firstValue;
         }
         //$HTMLAttributes = array_merge($HTMLAttributes, ['style' => 'color:#459450']);
