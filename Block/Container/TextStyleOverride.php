@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaLounge\Storyblok\Tiptap\Marks\Overrides;
+namespace MediaLounge\Storyblok\Block\Container;
 
 use Tiptap\Core\Mark;
 use Tiptap\Utils\HTML;
