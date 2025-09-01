@@ -40,6 +40,9 @@ class Element extends \Magento\Framework\View\Element\Template
     ) {
         parent::__construct($context, $data);
 
+        $this->logger = $logger;
+        $this->loglevel = 'debug';
+
         $this->editor = new Editor(['extensions' => [
                 new Storyblok([
                     'override_extensions' => [
@@ -49,8 +52,6 @@ class Element extends \Magento\Framework\View\Element\Template
             ],
         ]);
 
-        $this->logger = $logger;
-        $this->loglevel = 'debug';
 
         $this->scopeConfig = $scopeConfig;
         $this->storeManager = $storeManager;
