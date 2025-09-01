@@ -43,7 +43,7 @@ class Element extends \Magento\Framework\View\Element\Template
         $this->editor = new Editor(['extensions' => [
                 new Storyblok([
                     'override_extensions' => [
-                        'textStyle' => new TextStyleOverride(),
+                        'textStyle' => new TextStyleOverride($this->logger),
                     ],
                 ]),
             ],
