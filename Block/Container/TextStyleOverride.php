@@ -68,16 +68,12 @@ class TextStyleOverride extends Mark
             } 
             else if (isset($attrValue)) {                
                 $this->logger->debug('TextStyleOverride::renderHTML: NOT ARRAY');
-                $attrValue = json_decode($attrValue, true);
-                
-// Or get first key dynamically
-//$vars = get_object_vars($data);
-//$firstKey = array_key_first($vars);
-//$firstValue = $vars[$firstKey];
+                $attrValue = json_decode($attrValue);
 
+                $vars = get_object_vars($attrValue);
+                $firstKey = array_key_first($vars);
+                $firstValue = $vars[$firstKey];
 
-                $firstKey = array_key_first($attrValue);
-                $firstValue = $attrValue[$firstKey];
                 $HTMLAttributes['style'] = $firstKey . ':' . $firstValue;
             }
         }
