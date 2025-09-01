@@ -9,7 +9,7 @@ use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
-use TextStyleOverride;
+use MediaLounge\Storyblok\Block\Container\TextStyleOverride;
 
 
 class Element extends \Magento\Framework\View\Element\Template
