@@ -14,7 +14,7 @@ class TextStyleOverride extends Mark
     public function __construct(
         LoggerInterface $logger,
     ) {
-        parent::__construct($options);
+        parent::__construct();
         $this->logger = $logger;
     } 
 
