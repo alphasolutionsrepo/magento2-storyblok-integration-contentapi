@@ -9,7 +9,7 @@ use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
-use MediaLounge\Storyblok\Tiptap\Marks\Overrides
+use MediaLounge\Storyblok\Tiptap\Marks\Overrides;
 
 
 class Element extends \Magento\Framework\View\Element\Template
@@ -48,6 +48,7 @@ class Element extends \Magento\Framework\View\Element\Template
                 ]),
             ],
         ]);
+
         $this->logger = $logger;
         $this->loglevel = 'debug';
 
@@ -62,7 +63,9 @@ class Element extends \Magento\Framework\View\Element\Template
 
         if ($this->loglevel === 'debug') {
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::imagehost=' . $this->imagehost);
-        }    
+        }
+        
+
     }
 
     protected function _toHtml(): string
