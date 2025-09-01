@@ -48,6 +48,8 @@ class TextStyleOverride extends Mark
             $this->logger->debug('TextStyleOverride::renderHTML: ARRAY');      
             $markArray = is_string($mark) ? json_decode($mark, true) : $mark;
             $this->logger->debug('TextStyleOverride::renderHTML: markArray=' . json_encode($markArray));      
+            $this->logger->debug('TextStyleOverride::renderHTML: is_string - markArray=' . is_string($markArray));      
+            $this->logger->debug('TextStyleOverride::renderHTML: is_string - is_array=' . is_array($markArray));      
             $styles = [];
             if (isset($markArray['attrs']) && is_array($markArray['attrs'])) {
                 foreach ($markArray['attrs'] as $key => $value) {
