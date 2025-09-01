@@ -64,13 +64,14 @@ class TextStyleOverride extends Mark
                 }
                 if (!empty($styles)) {
                     $HTMLAttributes['style'] = implode(';', $styles);
-                }
+                }            
+            } 
+            else if (isset($attrValue)) {
+                $this->logger->debug('TextStyleOverride::renderHTML: NOT ARRAY');
+                $firstKey = array_key_first($attrValue);
+                $firstValue = $attrValue[$firstKey];
+                $HTMLAttributes['style'] = $firstKey . ':' . $firstValue;
             }
-        } else if (isset($attrValue)) {
-            $this->logger->debug('TextStyleOverride::renderHTML: NOT ARRAY');
-            $firstKey = array_key_first($attrValue);
-            $firstValue = $attrValue[$firstKey];
-            $HTMLAttributes['style'] = $firstKey . ':' . $firstValue;
         }
         //$HTMLAttributes = array_merge($HTMLAttributes, ['style' => 'color:#459450']);
         $this->logger->debug('TextStyleOverride::renderHTML: HTMLAttributes=' . json_encode($HTMLAttributes));
