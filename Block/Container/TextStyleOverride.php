@@ -44,8 +44,9 @@ class TextStyleOverride extends Mark
         $this->logger->debug('TextStyleOverride::renderHTML: HTMLAttributes=' . json_encode($HTMLAttributes));
         $this->logger->debug('TextStyleOverride::renderHTML: empty($mark)=' . empty($mark));
 
-        if (!empty($mark) && !empty($mark['attrs'])) {
+        if (!empty($mark)) {
             $this->logger->debug('TextStyleOverride::renderHTML: ARRAY');
+            $this->logger->debug('TextStyleOverride::renderHTML: ARRAY mark[attrs]' . json_encode($mark['attrs']));
             $styles = [];
             foreach ($mark['attrs'] as $key => $value) {
             $styles[] = $key . ':' . $value;
