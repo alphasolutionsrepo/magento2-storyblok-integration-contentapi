@@ -48,16 +48,10 @@ class TextStyleOverride extends Mark
             $this->logger->debug('TextStyleOverride::renderHTML: ARRAY');      
             $markArray = is_string($mark) ? json_decode($mark, true) : $mark;
             $this->logger->debug('TextStyleOverride::renderHTML: markArray=' . json_encode($markArray));      
-            $this->logger->debug('TextStyleOverride::renderHTML: is_string - mark=' . is_string($mark));      
-            $this->logger->debug('TextStyleOverride::renderHTML: is_array - mark=' . is_array($mark));      
-            if (is_string($mark)) {
-                $this->logger->debug('TextStyleOverride::renderHTML: is_string($mark)=' . is_string($mark));      
-                $decodedMark = json_decode($mark, true);
-                if (isset($decodedMark['attrs'])) {
-                    $markArray['attrs'] = $decodedMark['attrs'];
-                }
-            }
-            $this->logger->debug('TextStyleOverride::renderHTML: is_array - $markArray[attrs]=' . json_encode($markArray['attrs']));      
+            $this->logger->debug('TextStyleOverride::renderHTML: is_string - markArray=' . is_string($markArray));      
+            $this->logger->debug('TextStyleOverride::renderHTML: is_array - markArray=' . is_array($markArray));      
+
+            $this->logger->debug('TextStyleOverride::renderHTML: $markArray->attrs=' . json_encode($markArray->attrs));
             
             $styles = [];
             if (isset($markArray['attrs']) && is_array($markArray['attrs'])) {
