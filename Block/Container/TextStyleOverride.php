@@ -42,7 +42,22 @@ class TextStyleOverride extends Mark
     {
         $this->logger->debug('TextStyleOverride::renderHTML: mark=' . json_encode($mark));
         $this->logger->debug('TextStyleOverride::renderHTML: HTMLAttributes=' . json_encode($HTMLAttributes));
-        $HTMLAttributes = array_merge($HTMLAttributes, ['style' => 'color:#459450']);
+        if (isset($mark['attrs']) && is_array($mark['attrs'])) {
+            $this->logger->debug('TextStyleOverride::renderHTML: ARRAY');
+            $styles = [];
+            foreach ($mark['attrs'] as $key => $value) {
+            $styles[] = $key . ':' . $value;
+            }
+            if (!empty($styles)) {
+            $HTMLAttributes['style'] = implode(';', $styles);
+            }
+        } else if (isset($mark['attrs'])) {
+            $this->logger->debug('TextStyleOverride::renderHTML: NOT ARRAY');
+            $firstKey = array_key_first($mark['attrs']);
+            $firstValue = $mark['attrs'][$firstKey];
+            $HTMLAttributes['style'] = $firstKey . ':' . $firstValue;
+        }
+        //$HTMLAttributes = array_merge($HTMLAttributes, ['style' => 'color:#459450']);
         $this->logger->debug('TextStyleOverride::renderHTML: HTMLAttributes=' . json_encode($HTMLAttributes));
         return ['span', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
