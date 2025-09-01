@@ -68,12 +68,9 @@ class TextStyleOverride extends Mark
             } 
             else if (isset($attrValue)) {                
                 $this->logger->debug('TextStyleOverride::renderHTML: NOT ARRAY');
-                $attrValue = json_decode($attrValue);
-
                 $vars = get_object_vars($attrValue);
                 $firstKey = array_key_first($vars);
                 $firstValue = $vars[$firstKey];
-
                 $HTMLAttributes['style'] = $firstKey . ':' . $firstValue;
             }
         }
