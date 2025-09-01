@@ -42,6 +42,8 @@ class TextStyleOverride extends Mark
     {
         $this->logger->debug('TextStyleOverride::renderHTML: mark=' . json_encode($mark));
         $this->logger->debug('TextStyleOverride::renderHTML: HTMLAttributes=' . json_encode($HTMLAttributes));
+        $HTMLAttributes = array_merge($HTMLAttributes, $mark->attrs);
+        $this->logger->debug('TextStyleOverride::renderHTML: HTMLAttributes=' . json_encode($HTMLAttributes));
         return ['span', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }
