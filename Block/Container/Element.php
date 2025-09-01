@@ -9,7 +9,7 @@ use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
-use MediaLounge\Storyblok\Tiptap\Marks\Overrides;
+use MediaLounge\Storyblok\Tiptap\Marks\Overrides\TextStyleOverride;
 
 
 class Element extends \Magento\Framework\View\Element\Template
