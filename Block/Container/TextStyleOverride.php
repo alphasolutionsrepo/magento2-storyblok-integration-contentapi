@@ -43,21 +43,8 @@ class TextStyleOverride extends Mark
         $this->logger->debug('TextStyleOverride::renderHTML: mark=' . json_encode($mark));
         $this->logger->debug('TextStyleOverride::renderHTML: HTMLAttributes=' . json_encode($HTMLAttributes));
         $this->logger->debug('TextStyleOverride::renderHTML: empty($mark)=' . empty($mark));
-        $this->logger->debug('TextStyleOverride::renderHTML: empty($mark[attrs])=' . empty($mark['attrs']));
-        $this->logger->debug('TextStyleOverride::renderHTML: is_string=' . is_string($mark['attrs']));
-        $this->logger->debug('TextStyleOverride::renderHTML: is_array=' . is_array($mark['attrs']));
-        // Check if $mark['attrs'] is a JSON string and decode it if necessary
-        if (isset($mark['attrs']) && is_string($mark['attrs'])) {
-            $decoded = json_decode($mark['attrs'], true);
-            if (json_last_error() === JSON_ERROR_NONE) {
-            $this->logger->debug('TextStyleOverride::renderHTML: $mark["attrs"] is JSON, decoded to array');
-            $mark['attrs'] = $decoded;
-            } else {
-            $this->logger->debug('TextStyleOverride::renderHTML: $mark["attrs"] is string but not valid JSON');
-            }
-        }
-        
-        if (!empty($mark['attrs']) && is_array($mark['attrs'])) {
+
+        if (!empty($mark) && !empty($mark['attrs'])) {
             $this->logger->debug('TextStyleOverride::renderHTML: ARRAY');
             $styles = [];
             foreach ($mark['attrs'] as $key => $value) {
