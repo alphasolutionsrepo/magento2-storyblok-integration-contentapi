@@ -4,10 +4,19 @@ namespace MediaLounge\Storyblok\Block\Container;
 
 use Tiptap\Core\Mark;
 use Tiptap\Utils\HTML;
+use Psr\Log\LoggerInterface;
 
 class TextStyleOverride extends Mark
 {
+    private LoggerInterface $logger;
     public static $name = 'textStyle';
+
+    public function __construct(
+        LoggerInterface $logger,
+    ) {
+        parent::__construct($options);
+        $this->logger = $logger;
+    } 
 
     public function addOptions()
     {
@@ -18,6 +27,7 @@ class TextStyleOverride extends Mark
 
     public function parseHTML()
     {
+        $this->logger->debug('TextStyleOverride::parseHTML');
         return [
             [
                 'tag' => 'span',
