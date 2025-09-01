@@ -20,7 +20,7 @@ class TextStyleOverride extends Mark
     {
         return [
             [
-                'tag' => 'span2',
+                'tag' => 'span',
                 'getAttrs' => function ($DOMNode) {
                     return $DOMNode->hasAttribute('style') ? null : false;                    
                 },
@@ -30,6 +30,6 @@ class TextStyleOverride extends Mark
 
     public function renderHTML($mark, $HTMLAttributes = [])
     {
-        return ['span', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
+        return ['span2', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes), 0];
     }
 }
