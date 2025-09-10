@@ -47,6 +47,7 @@ class Element extends \Magento\Framework\View\Element\Template
                 new Storyblok([
                     'override_extensions' => [
                         'textStyle' => new TextStyleOverride($this->logger),
+                        'hardBreak' => new HardBreakOverride($this->logger),
                     ],
                 ]),
             ],
