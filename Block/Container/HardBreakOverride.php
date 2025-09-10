@@ -9,14 +9,14 @@ use Psr\Log\LoggerInterface;
 class HardBreakOverride extends Node
 {
     private LoggerInterface $logger;
-    public static $name = 'hardBreak';
+    public static $name = 'hard_break';
 
     public function __construct(
         LoggerInterface $logger,
     ) {
         parent::__construct();
         $this->logger = $logger;
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::HardBreak::__construct');
+        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::HardBreakOverride::__construct');
     } 
 
     public function addOptions()
@@ -28,7 +28,7 @@ class HardBreakOverride extends Node
 
     public function parseHTML()
     {
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::HardBreak::parseHTML');
+        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::HardBreakOverride::parseHTML');
         return [
             [
                 'tag' => 'br',
@@ -38,7 +38,7 @@ class HardBreakOverride extends Node
 
     public function renderHTML($node, $HTMLAttributes = [])
     {
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::HardBreak::renderHTML::info=' . json_encode($node));
+        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::HardBreakOverride::renderHTML::info=' . json_encode($node));
         return ['br', HTML::mergeAttributes($this->options['HTMLAttributes'], $HTMLAttributes)];
     }
 }
