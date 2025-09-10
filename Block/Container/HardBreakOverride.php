@@ -6,7 +6,7 @@ use Tiptap\Core\Node;
 use Tiptap\Utils\HTML;
 use Psr\Log\LoggerInterface;
 
-class HardBreak extends Node
+class HardBreakOverride extends Node
 {
     private LoggerInterface $logger;
     public static $name = 'hardBreak';

@@ -10,6 +10,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
 use MediaLounge\Storyblok\Block\Container\TextStyleOverride;
+use MediaLounge\Storyblok\Block\Container\HardBreakOverride;
 
 
 class Element extends \Magento\Framework\View\Element\Template
