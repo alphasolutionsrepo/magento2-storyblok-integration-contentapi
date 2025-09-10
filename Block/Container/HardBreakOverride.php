@@ -21,7 +21,6 @@ class HardBreakOverride extends Node
 
     public function addOptions()
     {
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::HardBreak::addOptions');
         return [
             'HTMLAttributes' => [],
         ];
