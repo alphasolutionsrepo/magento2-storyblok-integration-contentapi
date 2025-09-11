@@ -106,6 +106,10 @@ class Router implements RouterInterface
         $paramForwarded = $request->getParam('forwarded');
         $paramClean = $request->getParam('clean');
         
+        $originalPathInfo = trim($request->getOriginalPathInfo(), '/');
+        $requestUri = trim($request->getRequestUri(), '/');
+        $identifier = trim($request->getOriginalPathInfo(), '/');
+
         if($paramClean && !empty($identifier)) {
             if ($this->loglevel=== 'debug') {
                 $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): Clean=' . $identifier);
@@ -113,9 +117,6 @@ class Router implements RouterInterface
             $this->cache->clean([$identifier]);
         }
                 
-        $originalPathInfo = trim($request->getOriginalPathInfo(), '/');
-        $requestUri = trim($request->getRequestUri(), '/');
-        $identifier = trim($request->getOriginalPathInfo(), '/');
         if ($this->loglevel=== 'debug') {
             $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $requestUri=' . $requestUri);
         }
