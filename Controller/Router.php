@@ -109,12 +109,8 @@ class Router implements RouterInterface
         $requestUri = trim($request->getRequestUri(), '/');
         $identifier = trim($request->getOriginalPathInfo(), '/');
         if ($this->loglevel=== 'debug') {
-            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $identifier=' . $identifier);
-            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): getParam(_storyblok)=' . $paramStoryblok);
-            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $originalPathInfo=' . $originalPathInfo);
             $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $requestUri=' . $requestUri);
-            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $paramForwarded=' . $paramForwarded);
-    }
+        }
 
         if ($paramForwarded) {
             if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match()::Start::Forwarded Exit');
@@ -148,10 +144,7 @@ class Router implements RouterInterface
             }
 
             $data = $this->serializer->unserialize($data);
-            if ($this->loglevel=== 'debug')  $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match()::UNserialize::$data=' . json_encode($data));
-
             if ($this->loglevel=== 'debug')  $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match()::$data->story=' . json_encode($data['story']));
-
 
             if (!empty($data['story'])) {
                 $request
@@ -161,8 +154,6 @@ class Router implements RouterInterface
                         'story' => $data['story']
                     , 'forwarded' => true
                     ]);
-
-                if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match()::forward to storyblok Controller');
 
                 return $this->actionFactory->create(Forward::class, ['request' => $request]);
             }

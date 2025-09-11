@@ -86,6 +86,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
     public function getCacheLifetime()
     {
+        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheLifetime(): ' . parent::getCacheLifetime() ?: 3600);
         return parent::getCacheLifetime() ?: 3600;
     }
 

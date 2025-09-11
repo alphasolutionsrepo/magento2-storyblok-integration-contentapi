@@ -15,7 +15,7 @@ use MediaLounge\Storyblok\Block\Container\HardBreakOverride;
 
 class Element extends \Magento\Framework\View\Element\Template
 {
-     private LoggerInterface $logger;
+    private LoggerInterface $logger;
 
     /**
      * @var Editor
@@ -83,7 +83,6 @@ class Element extends \Magento\Framework\View\Element\Template
         if ($this->loglevel === 'debug') {
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$arrContent=' . print_r($arrContent, true));
         }
-        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::Start');        
         $this->editor->setContent($arrContent);
         $html = $this->editor->getHTML();
         if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$html=' . $html);
@@ -94,7 +93,6 @@ class Element extends \Magento\Framework\View\Element\Template
     public function transformImage(string $image, string $param = ''): string
     {
         if ($this->loglevel=== 'debug') { 
-            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::Start');        
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$image=' . $image);        
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$param=' . $param);        
         }
@@ -123,7 +121,6 @@ class Element extends \Magento\Framework\View\Element\Template
             $key = strtolower(substr($method, 3, -4));
             return $this->getStoryBlockChilds($key);
         }
-            if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()-2:: calling parent::__call()');
         return parent::__call($method, $args);
     }
 
@@ -131,7 +128,6 @@ class Element extends \Magento\Framework\View\Element\Template
     {
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$key=' . $key);
         $data = $this->getData($key);
-        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$data=' . print_r($data, true));
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::getStoryBlockChilds()::$data=' . json_encode($data));
         if (!$data) {
             return null;
