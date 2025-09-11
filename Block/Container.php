@@ -96,14 +96,17 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
     public function getIdentities(): array
     {
+        $identities = [];
         if (!empty($this->getSlug())) {
             $slug = str_replace('/', '', $this->getSlug());
-            return ["storyblok_slug_{$slug}"];
+            $identities = ["storyblok_slug_{$slug}"];
         } elseif (!empty($this->getData('story')['id'])) {
-            return ["storyblok_{$this->getData('story')['id']}"];
+            $identities = ["storyblok_{$this->getData('story')['id']}"];
         }
 
-        return [];
+        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getIdentities(): ' . $identities);
+
+        return $identities;
     }
 
     public function getCacheKeyInfo(): array

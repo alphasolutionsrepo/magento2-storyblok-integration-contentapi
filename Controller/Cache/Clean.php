@@ -128,7 +128,6 @@ class Clean extends Action implements HttpPostActionInterface
             $this->cacheInterface->clean($tags);
             $this->cacheType->clean(\Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $tags);
 
-            $this->clearAllCache();
             $success = true;
             if ($this->loglevel === 'debug') {
                 $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::All cache cleared via clearall param');
