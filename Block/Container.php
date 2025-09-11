@@ -104,7 +104,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
             $identities = ["storyblok_{$this->getData('story')['id']}"];
         }
 
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getIdentities(): ' . $identities);
+        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getIdentities(): ' . json_encode($identities));
 
         return $identities;
     }
