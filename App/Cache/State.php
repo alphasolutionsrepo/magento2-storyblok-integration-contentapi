@@ -37,7 +37,6 @@ class State extends \Magento\Framework\App\Cache\State
 
     public function isEnabled($cacheType): bool
     {
-        $this->logger->debug('MediaLounge\Storyblok\App\Cache\State::isEnabled($cacheType): ' . $cacheType);
         $postContent = [];
 
         if ($this->isJsonPostRequest($this->request)) {
