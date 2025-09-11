@@ -5,9 +5,12 @@ use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\App\DeploymentConfig\Writer;
+use Psr\Log\LoggerInterface;
 
 class State extends \Magento\Framework\App\Cache\State
 {
+    private LoggerInterface $logger;
+
     /**
      * @var Json
      */
@@ -23,16 +26,18 @@ class State extends \Magento\Framework\App\Cache\State
         RequestInterface $request,
         DeploymentConfig $config,
         Writer $writer,
+        LoggerInterface $logger,
         $banAll = false
     ) {
         parent::__construct($config, $writer, $banAll);
-
+        $this->logger = $logger;
         $this->json = $json;
         $this->request = $request;
     }
 
     public function isEnabled($cacheType): bool
     {
+        $this->logger->debug('MediaLounge\Storyblok\App\Cache\State::isEnabled($cacheType): ' . $cacheType);
         $postContent = [];
 
         if ($this->isJsonPostRequest($this->request)) {
@@ -43,8 +48,11 @@ class State extends \Magento\Framework\App\Cache\State
             in_array($cacheType, ['block_html', 'full_page']) &&
             ($this->request->getParam('_storyblok') || !empty($postContent['_storyblok']))
         ) {
+            $this->logger->debug('MediaLounge\Storyblok\App\Cache\State::isEnabled($cacheType): return false');
             return false;
         }
+
+        $this->logger->debug('MediaLounge\Storyblok\App\Cache\State::isEnabled($cacheType): ' . parent::isEnabled($cacheType));
 
         return parent::isEnabled($cacheType);
     }

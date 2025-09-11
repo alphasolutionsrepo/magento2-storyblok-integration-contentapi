@@ -86,8 +86,10 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
     public function getCacheLifetime()
     {
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheLifetime(): ' . parent::getCacheLifetime() ?: 3600);
-        return parent::getCacheLifetime() ?: 3600;
+        $lifetime = parent::getCacheLifetime();
+        $lifetime = is_numeric($lifetime) ? $lifetime : 3600;
+        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheLifetime(): ' . $lifetime);        
+        return $lifetime;
     }
 
     public function getIdentities(): array
@@ -158,8 +160,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
     private function createBlockFromData(array $blockData): Element
     {
-        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::createBlockFromData()::$blockData=' . json_encode($blockData));
-        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::createBlockFromData()::$blockData=' . print_r($blockData, true));
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::createBlockFromData());
         $block = $this->getLayout()
             ->createBlock(
                 Element::class,
@@ -212,9 +213,6 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         $requestUri = trim($request->getRequestUri(), '/');
         $identifier = trim($request->getOriginalPathInfo(), '/');
         if ($this->loglevel=== 'debug') {
-            $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $identifier=' . $identifier);
-            $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: getParam(_storyblok)=' . $paramStoryblok);
-            $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $originalPathInfo=' . $originalPathInfo);
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $requestUri=' . $requestUri);
         }
 
