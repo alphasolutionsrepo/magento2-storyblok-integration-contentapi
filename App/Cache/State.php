@@ -43,18 +43,13 @@ class State extends \Magento\Framework\App\Cache\State
         if ($this->isJsonPostRequest($this->request)) {
             $postContent = $this->json->unserialize($this->request->getContent());
         }
-        $this->logger->debug('MediaLounge\Storyblok\App\Cache\State::$postContent ' . json_encode($postContent));
-        $this->logger->debug('MediaLounge\Storyblok\App\Cache\State::getParam(_storyblok) ' . $this->request->getParam('_storyblok'));
 
         if (
             in_array($cacheType, ['block_html', 'full_page']) &&
             ($this->request->getParam('_storyblok') || !empty($postContent['_storyblok']))
         ) {
-            $this->logger->debug('MediaLounge\Storyblok\App\Cache\State::isEnabled($cacheType): return false');
             return false;
         }
-
-        $this->logger->debug('MediaLounge\Storyblok\App\Cache\State::isEnabled($cacheType):parent: ' . parent::isEnabled($cacheType));
 
         return parent::isEnabled($cacheType);
     }

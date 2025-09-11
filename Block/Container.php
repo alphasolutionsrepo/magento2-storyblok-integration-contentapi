@@ -89,7 +89,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         $lifetime = parent::getCacheLifetime();
         $lifetime = is_numeric($lifetime) ? $lifetime : 3600;
         $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheLifetime(): ' . $lifetime);        
-        return 120;
+        return 1;  // Disable caching for now
 //        return $lifetime;
     }
 
