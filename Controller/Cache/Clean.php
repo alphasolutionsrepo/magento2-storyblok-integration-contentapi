@@ -111,7 +111,23 @@ class Clean extends Action implements HttpPostActionInterface
         if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::Start');        
         $success = false;
         if ($this->getRequest()->getParam('clearall') === 'true') {
-            //$this->cleanPageCache();
+            $this->clearAllCache();
+            $success = true;
+            if ($this->loglevel === 'debug') {
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::execute()::All cache cleared via clearall param');
+            }
+            $result = $this->resultJsonFactory->create();
+            $result->setData(['success' => $success]);
+            return $result;
+        }
+        if ($this->getRequest()->getParam('clearpage') === 'true') {
+
+            $tags[] = $this->getRequest()->getParam('pagetag');
+
+            if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Controller\Cache::Clean::clearpage(): ' . print_r($tags, true));
+            $this->cacheInterface->clean($tags);
+            $this->cacheType->clean(\Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG, $tags);
+
             $this->clearAllCache();
             $success = true;
             if ($this->loglevel === 'debug') {
