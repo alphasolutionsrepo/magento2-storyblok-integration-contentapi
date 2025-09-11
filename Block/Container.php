@@ -39,6 +39,8 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
     private $loglevel;
 
+    private $timeout;
+
     public function __construct(
         LoggerInterface $logger,
         FileSystem $viewFileSystem,
@@ -65,7 +67,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
             $this->storeManager->getStore()->getId()
         );
 
-        $timeout = $this->scopeConfig->getValue(
+        $this->$timeout = $this->scopeConfig->getValue(
             'storyblok/general/timeout',
             ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
@@ -80,7 +82,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         $this->storyblokClient = new StoryblokClient(
             $baseUri,
             $token,
-            $timeout
+            $this->$timeout
         );    
     }
 
