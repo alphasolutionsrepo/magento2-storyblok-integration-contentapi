@@ -104,6 +104,14 @@ class Router implements RouterInterface
     {
         $paramStoryblok = $request->getParam('_storyblok');
         $paramForwarded = $request->getParam('forwarded');
+        $paramClean = $request->getParam('clean');
+        
+        if($paramClean && !empty($identifier)) {
+            if ($this->loglevel=== 'debug') {
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): Clean=' . $identifier);
+            }
+            $this->cache->clean([$identifier]);
+        }
                 
         $originalPathInfo = trim($request->getOriginalPathInfo(), '/');
         $requestUri = trim($request->getRequestUri(), '/');
@@ -124,7 +132,10 @@ class Router implements RouterInterface
 
         try {
             $data = $this->cache->load($identifier);
-            if ($this->loglevel=== 'debug')  $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): CACHED $data=' . json_encode($data));
+            if ($this->loglevel=== 'debug')  {
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): CACHED $identifier=' . $identifier);
+                $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): CACHED $data=' . json_encode($data));
+            }
 
             if (!$data || $paramStoryblok) {
                 $storiesApi = new StoriesApi($this->storyblokClient, 'draft');
