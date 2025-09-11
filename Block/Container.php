@@ -160,7 +160,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
 
     private function createBlockFromData(array $blockData): Element
     {
-        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::createBlockFromData());
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::createBlockFromData()');
         $block = $this->getLayout()
             ->createBlock(
                 Element::class,
