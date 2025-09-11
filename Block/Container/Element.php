@@ -79,10 +79,9 @@ class Element extends \Magento\Framework\View\Element\Template
     }
 
     public function renderWysiwyg(array $arrContent): string
-    {
-        if ($this->loglevel === 'debug') {
-            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$arrContent=' . print_r($arrContent, true));
-        }
+    {        
+        //$this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$arrContent=' . print_r($arrContent, true));
+    
         $this->editor->setContent($arrContent);
         $html = $this->editor->getHTML();
         if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$html=' . $html);
@@ -94,7 +93,6 @@ class Element extends \Magento\Framework\View\Element\Template
     {
         if ($this->loglevel=== 'debug') { 
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$image=' . $image);        
-            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::transformImage()::$param=' . $param);        
         }
         $imageService = '//' . rtrim($this->imagehost, '/') . '/';
         $resource = preg_replace('/(https?:)?\/\/' . preg_quote($this->imagehost, '/') . '/', '', $image);
@@ -109,7 +107,6 @@ class Element extends \Magento\Framework\View\Element\Template
     public function __call($method, $args)
     {
         if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()::$method=' . $method);
-        if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call()::$args=' . print_r($args, true));
         // check for minimum length of 7 ('get' and 'html')
         if (!strlen($method) > 7) {
             if ($this->loglevel === 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::__call():: calling parent::__call()');
