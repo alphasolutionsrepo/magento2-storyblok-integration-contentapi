@@ -67,7 +67,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
             $this->storeManager->getStore()->getId()
         );
 
-        $this->$timeout = $this->scopeConfig->getValue(
+        $this->timeout = $this->scopeConfig->getValue(
             'storyblok/general/timeout',
             ScopeInterface::SCOPE_STORE,
             $this->storeManager->getStore()->getId()
@@ -82,7 +82,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         $this->storyblokClient = new StoryblokClient(
             $baseUri,
             $token,
-            $this->$timeout
+            $this->timeout
         );    
     }
 
