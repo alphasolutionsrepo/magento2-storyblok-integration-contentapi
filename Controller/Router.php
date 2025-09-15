@@ -147,11 +147,11 @@ class Router implements RouterInterface
 
                 if (!$paramStoryblok && !empty($response->story))
                 {
-                    if ($this->loglevel=== 'debug')  $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match()::CACHE->save=' . "storyblok_{$response->story['id']}");
-
-                    $this->cache->save($data, $identifier, [
-                        "storyblok_{$response->story['id']}"
-                    ]);
+                    $tags = [];
+                    $tags[] = "storyblok_{$response->story['id']}";
+                    $tags[] = "storyblok_slug_{$identifier}";
+                    if ($this->loglevel=== 'debug')  $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match()::CACHE->save::Tags=' . json_encode($tags));
+                    $this->cache->save($data, $identifier, $tags);
                 }
             }
 

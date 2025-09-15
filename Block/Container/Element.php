@@ -65,10 +65,8 @@ class Element extends \Magento\Framework\View\Element\Template
         );
 
         if ($this->loglevel === 'debug') {
-            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::imagehost=' . $this->imagehost);
-        }
-        
-
+            $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::imagehost=' . $this->imagehost);
+        }    
     }
 
     protected function _toHtml(): string
