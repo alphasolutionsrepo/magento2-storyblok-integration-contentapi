@@ -110,6 +110,18 @@ class Router implements RouterInterface
         $requestUri = trim($request->getRequestUri(), '/');
         $identifier = trim($request->getOriginalPathInfo(), '/');
 
+        if ($this->loglevel=== 'debug') {
+            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $paramStoryblok=' . var_export($paramStoryblok, true));
+            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $paramForwarded=' . var_export($paramForwarded, true));
+            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $paramClean=' . var_export($paramClean, true));
+            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $originalPathInfo=' . var_export($originalPathInfo, true));
+            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $requestUri=' . var_export($requestUri, true));
+            $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): $identifier=' . var_export($identifier, true));
+        }
+
+
+
+
         if($paramClean && !empty($identifier)) {
             if ($this->loglevel=== 'debug') {
                 $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match(): Clean=' . $identifier);
