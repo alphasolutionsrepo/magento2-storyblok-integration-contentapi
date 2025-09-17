@@ -98,7 +98,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
     {
         $identities = [];
         if (!empty($this->getSlug())) {
-            $slug = $this->getSlug();
+            $slug = ltrim($this->getSlug(), '/');
             $identities = ["storyblok_slug_{$slug}"];
         } elseif (!empty($this->getData('story')['id'])) {
             $identities = ["storyblok_{$this->getData('story')['id']}"];
@@ -116,7 +116,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         if (!empty($this->getData('story')['id'])) {
             $info[] = "storyblok_{$this->getData('story')['id']}";
         } elseif (!empty($this->getSlug())) {
-            $slug = $this->getSlug();
+            $slug = ltrim($this->getSlug(), '/');
             $info[] = "storyblok_slug_{$slug}";
         }
         
