@@ -90,7 +90,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
     {
         $lifetime = parent::getCacheLifetime();
         $lifetime = is_numeric($lifetime) ? $lifetime : $this->timeout;
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheLifetime(): ' . $lifetime);
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheLifetime(): ' . $lifetime);
         return $lifetime;
     }
 
@@ -104,7 +104,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
             $identities = ["storyblok_{$this->getData('story')['id']}"];
         }
 
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getIdentities(): ' . json_encode($identities));
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getIdentities(): ' . json_encode($identities));
 
         return $identities;
     }
@@ -120,7 +120,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
             $info[] = "storyblok_slug_{$slug}";
         }
         
-        $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheKeyInfo()::info=' . json_encode($info));
+        if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container::getCacheKeyInfo()::info=' . json_encode($info));
         return $info;
     }
 

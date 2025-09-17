@@ -78,8 +78,6 @@ class Element extends \Magento\Framework\View\Element\Template
 
     public function renderWysiwyg(array $arrContent): string
     {        
-        //$this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$arrContent=' . print_r($arrContent, true));
-    
         $this->editor->setContent($arrContent);
         $html = $this->editor->getHTML();
         if ($this->loglevel=== 'debug') $this->logger->debug('MediaLounge\Storyblok\Blok\Container\Element::renderWysiwyg()::$html=' . $html);
