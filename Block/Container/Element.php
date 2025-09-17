@@ -42,7 +42,7 @@ class Element extends \Magento\Framework\View\Element\Template
         parent::__construct($context, $data);
 
         $this->logger = $logger;
-        $this->loglevel = 'debug';
+        $this->loglevel = 'error';
 
         $this->editor = new Editor(['extensions' => [
                 new Storyblok([
