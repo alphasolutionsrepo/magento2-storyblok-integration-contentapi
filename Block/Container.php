@@ -98,7 +98,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
     {
         $identities = [];
         if (!empty($this->getSlug())) {
-            $slug = str_replace('/', '', $this->getSlug());
+            $slug = $this->getSlug();
             $identities = ["storyblok_slug_{$slug}"];
         } elseif (!empty($this->getData('story')['id'])) {
             $identities = ["storyblok_{$this->getData('story')['id']}"];
@@ -116,7 +116,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
         if (!empty($this->getData('story')['id'])) {
             $info[] = "storyblok_{$this->getData('story')['id']}";
         } elseif (!empty($this->getSlug())) {
-            $slug = str_replace('/', '', $this->getSlug());
+            $slug = $this->getSlug();
             $info[] = "storyblok_slug_{$slug}";
         }
         
@@ -213,10 +213,7 @@ class Container extends \Magento\Framework\View\Element\Template implements Iden
     protected function _toHtml(): string
     {
         $request = $this->getRequest();
-        $paramStoryblok = $request->getParam('_storyblok');
-        $originalPathInfo = trim($request->getOriginalPathInfo(), '/');
         $requestUri = trim($request->getRequestUri(), '/');
-        $identifier = trim($request->getOriginalPathInfo(), '/');
         if ($this->loglevel=== 'debug') {
             $this->logger->debug('MediaLounge\Storyblok\Blok\Container::_toHtml: $requestUri=' . $requestUri);
         }

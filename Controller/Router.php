@@ -162,6 +162,7 @@ class Router implements RouterInterface
                     $tags = [];
                     $tags[] = "storyblok_{$response->story['id']}";
                     $tags[] = "storyblok_slug_{$identifier}";
+                    $tags[] = "BLOCK_HTML";                    
                     if ($this->loglevel=== 'debug')  $this->logger->debug('MediaLounge\Storyblok\Controller\Router::match()::CACHE->save::Tags=' . json_encode($tags));
                     $this->cache->save($data, $identifier, $tags);
                 }
